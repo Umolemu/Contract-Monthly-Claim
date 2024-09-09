@@ -2,10 +2,6 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -15,8 +11,38 @@ html {
 html {
   position: relative;
   min-height: 100%;
+  overflow-y: hidden;
 }
 
-body {
-  margin-bottom: 60px;
+input {
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    height: 36px;
+    padding-left: 6px;
 }
+
+label {
+    padding-bottom: 2px;
+}
+
+input:focus {
+    outline: none; 
+}
+
+.header-image {
+    width: 50px;
+    height: 50px;
+}
+
+.login-checkbox {
+    border: 1px solid #334155;
+}
+
+.text-soft {
+    color: #64748b;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
