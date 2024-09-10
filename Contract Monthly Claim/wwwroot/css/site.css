@@ -42,7 +42,52 @@ input:focus {
     color: #64748b;
 }
 
+.side-bar {
+    color: white;
+    margin: 10px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.side-bar .header {
+    background-color: #0D6EFD;
+    border-radius: 6px;
+}
+
+.sidebar-links {
+    flex-grow: 1;
+}
+
+.sidebar-link-logout {
+    margin-top: auto;
+}
+
+
+.sidebar-links .sidebar-link a {
+    background-color: #f1f5f9;
+    text-decoration: none;
+    margin-top: 10px;
+    border-radius: 6px;
+    color: black;
+}
+
+.sidebar-links .sidebar-link a:hover {
+    background-color: #478ffc;
+    color: white;
+}
+
+.sidebar-link-logout a {
+    background-color: #f1f5f9;
+    text-decoration: none;
+    border-radius: 6px;
+    color: black;
+    margin-bottom: 20px;
+}
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
+}

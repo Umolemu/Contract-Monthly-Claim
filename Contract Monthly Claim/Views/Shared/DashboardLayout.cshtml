@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Contract Monthly Claim</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Contract_Monthly_Claim.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="d-flex">
+        <div class="side-bar d-flex flex-column">
+            <div>
+                <div class="header d-flex align-items-center justify-content-center py-3 px-5 pt-5">
+                    <svg fill="#ffffff" height="50px" width="50px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 485 485" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M314.042,90.965v-59.93H170.958v59.93H0v362.999h485V90.965H314.042z M200.958,61.035h83.083v29.93h-83.083V61.035z M455,120.965v89.5H30v-89.5H455z M222.5,240.465h40v29.5h-40V240.465z M30,423.965v-183.5h162.5v59.5h100v-59.5H455v183.5H30z"></path> </g> </g></svg>
+                    <h2 class="text-center m-3">CMCS</h2>
+                </div>
+
+                <div class="sidebar-links">
+                    <div class="sidebar-link">
+                        <a href="#" class="d-block py-3 px-3">Home</a>
+                    </div>
+                    <div class="sidebar-link">
+                        <a href="#" class="d-block py-3 px-3">Create Claim</a>
+                    </div>
+                    <div class="sidebar-link">
+                        <a href="#" class="d-block py-3 px-3">View Claims</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-link-logout">
+                <a href="#" class="d-block py-2 px-3 btn-danger">Logout</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <h1 class="text-center mt-2">@ViewData["Title"]</h1>
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
