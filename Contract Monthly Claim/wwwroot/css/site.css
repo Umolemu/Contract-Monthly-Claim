@@ -86,6 +86,19 @@ input:focus {
     margin-bottom: 20px;
 }
 
+.claim-container textarea {
+    resize: none;
+    height: 100px
+}
+
+.btn-submit {
+    background-color: #4ade80;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+}
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;

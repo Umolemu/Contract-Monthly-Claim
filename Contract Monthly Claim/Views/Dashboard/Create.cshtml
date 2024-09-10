@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Create Claim";
+    Layout = "~/Views/Shared/DashboardLayout.cshtml";
+}
+
+<div class="claim-container">
+    <div>
+        <div class="my-3">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" class="form-control" placeholder="Holiday"/>
+        </div>
+        <div class="my-3">
+            <label for="amount">Time Worked (Hours)</label>
+            <input type="number" id="amount" name="amount" class="form-control" placeholder="160"/>
+        </div>
+        <div class="my-3">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" class="form-control" placeholder="Whats on your mind ?"></textarea>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-primary">Upload document</button>
+        <button class="btn btn-submit">Submit</button>
+    </div>
+</div>
+
+
