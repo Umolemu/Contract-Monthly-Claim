@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Contract_Monthly_Claim.Models.LecturerModel
+
+@{
     ViewData["Title"] = "Register";
 }
 
@@ -13,35 +15,52 @@
                 approve monthly work claims.
             </p>
         </div>
-        <div class="d-flex flex-column w-100 gap-4">
+        
+        <!-- Registration Form -->
+        <form asp-action="Register" asp-controller="Lecturer" method="post" class="d-flex flex-column w-100 gap-4">
             <div>
-                <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" />
-            </div>
-            <div>
-                <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" />
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" />
-            </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center gap-2">
-                <input type="checkbox" name="name" value="" class="login-checkbox" />
-                <label>Remember me</label>
+                <label asp-for="FirstName">Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div>
-                <a href="#">Forgot Password</a>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-        </div>
-        <div class="mt-2 text-center">
-            <button class="btn btn-primary w-100 mb-2">Sign up</button>
-            <p>
-                Already have an account?
-                <a class="text-primary" asp-controller="Home" asp-action="Index">Login</a>
-            </p>
-        </div>
+            <div>
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <input type="checkbox" name="rememberMe" class="login-checkbox" />
+                    <label>Remember me</label>
+                </div>
+                <div>
+                    <a href="#">Forgot Password</a>
+                </div>
+            </div>
+
+            <!-- Validation Summary -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mt-2 text-center">
+                <button type="submit" class="btn btn-primary w-100 mb-2">Sign up</button>
+                <p>
+                    Already have an account?
+                    <a class="text-primary" asp-controller="" asp-action="Index">Login</a>
+                </p>
+            </div>
+        </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

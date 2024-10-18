@@ -25,16 +25,13 @@
                         <a asp-controller="Dashboard" asp-action="Create" class="d-block py-3 px-3">Create Claim</a>
                     </div>
                     <div class="sidebar-link">
-                        <a asp-controller="Dashboard" asp-action="Track" class="d-block py-3 px-3">Track Claims</a>
-                    </div>
-                    <div class="sidebar-link">
                         <a asp-controller="Dashboard" asp-action="Claims" class="d-block py-3 px-3">User Claims</a>
                     </div>
                 </div>
             </div>
 
             <div class="sidebar-link-logout">
-                <a href="#" class="d-block py-3 px-3 btn-danger">Logout</a>
+                <a asp-controller="Home" asp-action="Index" class="d-block py-3 px-3 btn-danger">Logout</a>
             </div>
         </div>
 

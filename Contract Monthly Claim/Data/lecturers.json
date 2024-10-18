@@ -1,0 +1,11 @@
+[
+  {
+    "LecturerId": 1,
+    "FirstName": "Test1",
+    "LastName": null,
+    "Email": "Test1@exapmle.com",
+    "Password": "Test1",
+    "PhoneNumber": 0,
+    "HourlyRate": 0.0
+  }
+]

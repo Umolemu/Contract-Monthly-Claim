@@ -1,0 +1,72 @@
+[
+  {
+    "ClaimId": 1,
+    "LecturerId": 4,
+    "DateSubmitted": "2024-10-18T18:57:06.9339442+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 50000,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  },
+  {
+    "ClaimId": 2,
+    "LecturerId": 1,
+    "DateSubmitted": "2024-10-18T19:26:40.0826711+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 50000,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  },
+  {
+    "ClaimId": 3,
+    "LecturerId": 1,
+    "DateSubmitted": "2024-10-18T20:22:58.5994844+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 5576,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  },
+  {
+    "ClaimId": 4,
+    "LecturerId": 1,
+    "DateSubmitted": "2024-10-18T20:23:09.6981674+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 5576,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  },
+  {
+    "ClaimId": 5,
+    "LecturerId": 1,
+    "DateSubmitted": "2024-10-18T20:23:55.3497852+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 5576,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  },
+  {
+    "ClaimId": 6,
+    "LecturerId": 1,
+    "DateSubmitted": "2024-10-18T20:24:03.7203256+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 5576,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  },
+  {
+    "ClaimId": 7,
+    "LecturerId": 1,
+    "DateSubmitted": "2024-10-18T20:24:08.4759255+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 5576,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  }
+]

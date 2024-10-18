@@ -4,10 +4,10 @@
     {
         public int ClaimId { get; set; }
         public int LecturerId { get; set; }
-        public DateTime DateSubmitted { get; set; }
+        public DateTime DateSubmitted { get; set; } = DateTime.Now;
         public TimeSpan HoursWorked { get; set; }
         public double TotalAmount { get; set; }
-        public string ClaimStatus { get; set; }
+        public string ClaimStatus { get; set; } = "Pending";
         public DateTime CoordinatorApprovalDate { get; set; }
         public int ManagerApprovalDate { get; set; }
 
@@ -16,10 +16,10 @@
             return 0.0;
         }
 
-        public bool SubmitClaim()
-        {
+        //public bool SubmitClaim()
+        //{
             // Logic for submitting the claim
-        }
+        //}
 
         public void UpdateClaimStatus(string status)
         {
@@ -31,9 +31,9 @@
             // Logic to add a supporting document
         }
 
-        public ClaimModel GetClaimDetails(int claimId)
-        {
+        //public ClaimModel GetClaimDetails(int claimId)
+        //{
             // Logic to retrieve claim details
-        }
+        //}
     }
 }

@@ -6,26 +6,35 @@
 <div class="claim-container">
     <form method="post" action="/Claims/Create" enctype="multipart/form-data">
         <div class="my-3">
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" name="subject" class="form-control" placeholder="Holiday" required/>
+            <label for="LecturerId">Lecturer ID</label>
+            <input type="number" id="LecturerId" name="LecturerId" class="form-control" required />
         </div>
         <div class="my-3">
-            <label for="amount">Time Worked (Hours)</label>
-            <input type="number" id="amount" name="amount" class="form-control" placeholder="160" required/>
+            <label for="ClaimStatus">Claim Status</label>
+            <input type="text" id="ClaimStatus" name="ClaimStatus" class="form-control" value="Pending" readonly />
+        </div>
+        <div class="my-3">
+            <label for="HoursWorked">Time Worked (Hours)</label>
+            <input type="number" id="HoursWorked" name="HoursWorked" class="form-control" placeholder="160" required />
+        </div>
+        <div class="my-3">
+            <label for="TotalAmount">Total Amount</label>
+            <input type="number" step="0.01" id="TotalAmount" name="TotalAmount" class="form-control" required />
         </div>
         <div class="my-3">
             <label for="message">Additional Notes</label>
-            <textarea id="message" name="message" class="form-control" placeholder="What's on your mind?"></textarea>
+            <textarea id="AdditionalNotes" name="AdditionalNotes" class="form-control" placeholder="What's on your mind?"></textarea>
         </div>
         <div class="my-3">
             <label for="document">Upload Document</label>
             <input type="file" id="document" name="document" class="form-control-file" />
         </div>
         <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-submit">Submit</button>
+            <button type="submit" class="btn btn-submit">Submit</button>
         </div>
     </form>
 </div>
+
 
 
 

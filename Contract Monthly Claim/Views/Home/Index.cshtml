@@ -9,35 +9,39 @@
                 <h2>Welcome to Contract Monthly Claim</h2>
             </div>
             <p class="text-soft">
-                The Contract Monthly Claim System empowers academic staff to effortlessly submit, review, and 
+                The Contract Monthly Claim System empowers academic staff to effortlessly submit, review, and
                 approve monthly work claims.
             </p>
         </div>
-        <div class="d-flex flex-column w-100 gap-4">
+
+        <!-- Login Form -->
+        <form asp-controller="Lecturer" asp-action="Login" method="post" class="d-flex flex-column w-100 gap-4">
             <div>
                 <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" />
+                <input type="email" name="email" class="form-control" required />
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" />
+                <input type="password" name="password" class="form-control" required />
             </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center gap-2">
-                <input type="checkbox" name="name" value="" class="login-checkbox"/>
-                <label>Remember me</label>
+
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <input type="checkbox" name="rememberMe" value="true" class="login-checkbox" />
+                    <label>Remember me</label>
+                </div>
+                <div>
+                    <a href="#">Forgot Password</a>
+                </div>
             </div>
-            <div>
-                <a href="#">Forgot Password</a>
-            </div>            
-        </div>
-        <div class="mt-2 text-center">
-            <a class="btn btn-primary w-100 mb-2" asp-controller="Dashboard" asp-action="Index">Log in</a>
-            <p>
-                Dont have an account?
-                <a class="text-primary" asp-controller="" asp-action="Register">Sign up</a>
-            </p>
-        </div>
+
+            <div class="mt-2 text-center">
+                <button type="submit" class="btn btn-primary w-100 mb-2">Log in</button>
+                <p>
+                    Don’t have an account?
+                    <a class="text-primary" asp-controller="" asp-action="Register">Sign up</a>
+                </p>
+            </div>
+        </form>
     </div>
 </div>

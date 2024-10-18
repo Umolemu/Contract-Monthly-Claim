@@ -13,9 +13,9 @@
             // Logic to upload document
         }
 
-        public SupportingDocumentModel GetDocumentDetails(int documentId)
-        {
+        //public SupportingDocumentModel GetDocumentDetails(int documentId)
+        //{
             // Logic to get document details
-        }
+        //}
     }
 }
