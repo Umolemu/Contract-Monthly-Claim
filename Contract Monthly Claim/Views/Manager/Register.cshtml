@@ -1,0 +1,70 @@
+﻿@model Contract_Monthly_Claim.Models.AcademicManagerModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="d-flex justify-content-center align-items-center flex-column vh-100">
+    <div class="d-flex flex-column gap-2">
+        <div class="text-center mb-4">
+            <div>
+                <h2>Welcome to Contract Monthly Claim Manager</h2>
+            </div>
+            <p class="text-soft">
+                The Contract Monthly Claim System empowers academic staff to effortlessly submit, review, and
+                approve monthly work claims.
+            </p>
+        </div>
+
+        <!-- Registration Form -->
+        <form asp-action="Register" asp-controller="AcademicManager" method="post" class="d-flex flex-column w-100 gap-4">
+            <div>
+                <label asp-for="FirstName">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="LastName">Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <input type="checkbox" name="rememberMe" class="login-checkbox" />
+                    <label>Remember me</label>
+                </div>
+                <div>
+                    <a href="#">Forgot Password</a>
+                </div>
+            </div>
+
+            <!-- Validation Summary -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mt-2 text-center">
+                <button type="submit" class="btn btn-primary w-100 mb-2">Sign up</button>
+                <p>
+                    Already have an account?
+                    <a class="text-primary" asp-controller="Manager" asp-action="Index">Login</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

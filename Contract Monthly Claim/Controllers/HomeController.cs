@@ -13,6 +13,13 @@ namespace Contract_Monthly_Claim.Controllers
             _logger = logger;
         }
 
+        // Logout action
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear(); 
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult Index()
         {
             return View();
