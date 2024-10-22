@@ -20,7 +20,7 @@ namespace Contract_Monthly_Claim.Controllers
             {
                 Database.AddAcademicManager(manager);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Manager");
             }
 
             return BadRequest("Manager already exists.");
@@ -39,7 +39,7 @@ namespace Contract_Monthly_Claim.Controllers
 
                 return RedirectToAction("Index", "Dashboard");
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Manager");
         }
 
         [HttpGet("View")]

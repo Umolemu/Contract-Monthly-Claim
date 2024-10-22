@@ -14,11 +14,6 @@ namespace Contract_Monthly_Claim.Controllers
             return View();
         }
 
-        public IActionResult Track()
-        {
-            return View();
-        }
-
         public IActionResult Claims()
         {
             return View();

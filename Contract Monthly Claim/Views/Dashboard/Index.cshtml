@@ -3,16 +3,19 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 @{
-
     ViewData["Title"] = "Claims";
     Layout = "~/Views/Shared/DashboardLayout.cshtml";
 
-    if (string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("UID")))
+    // Check if UID is in the session
+    var uidString = HttpContextAccessor.HttpContext.Session.GetString("UID");
+    if (string.IsNullOrEmpty(uidString))
     {
         HttpContextAccessor.HttpContext.Response.Redirect("/");
-        return; 
+        return;
     }
 
+    // Parse UID to an integer
+    int uid = int.Parse(uidString); // Assuming UID is stored as a string representation of an integer
     var jsonFilePath = "Data/claims.json";
 
     // Read the JSON file and deserialize it to a List of ClaimModel
@@ -23,16 +26,19 @@
         var json = System.IO.File.ReadAllText(jsonFilePath);
         claims = System.Text.Json.JsonSerializer.Deserialize<List<Contract_Monthly_Claim.Models.ClaimModel>>(json);
     }
+
+    // Filter claims for the current lecturer
+    var lecturerClaims = claims.Where(claim => claim.LecturerId == uid).ToList();
 }
 
-@if (claims == null || !claims.Any())
+@if (lecturerClaims == null || !lecturerClaims.Any())
 {
     <h1 class="text-center">You have no active claims</h1>
 }
 else
 {
     <div class="claims-list">
-        @foreach (var claim in claims)
+        @foreach (var claim in lecturerClaims)
         {
             <div class="claim-item">
                 <h3>Claim #@claim.ClaimId</h3>

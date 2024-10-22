@@ -1,11 +1,5 @@
 ﻿using Contract_Monthly_Claim.Models;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
-using static System.Net.Mime.MediaTypeNames;
-using System.Security.Claims;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace Contract_Monthly_Claim.Data
 {
@@ -71,8 +65,6 @@ namespace Contract_Monthly_Claim.Data
 
             var lecturer = GetLecturerByEmail(email);
             
-            Console.WriteLine($"Lecturer: {lecturer.FirstName}, Email: {lecturer.Email}");
-
             return lecturer != null && lecturer.Password == password;
         }
 
@@ -133,7 +125,7 @@ namespace Contract_Monthly_Claim.Data
 
         // Validate manager credentials by email and password
         public static bool ValidateAcademicManager(string email, string password)
-        {
+        {   
             var manager = GetAcademicManagerByEmail(email);
             return manager != null && manager.Password == password;
         }

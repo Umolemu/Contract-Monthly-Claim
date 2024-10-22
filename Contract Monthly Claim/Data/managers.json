@@ -1,10 +1,18 @@
 [
   {
     "ManagerId": 1,
-    "FirstName": "Test1 ",
-    "LastName": "Test1 ",
+    "FirstName": "Test1",
+    "LastName": "Test1",
     "Email": "Test1@example.com",
     "Password": "Test1 ",
+    "PhoneNumber": 0
+  },
+  {
+    "ManagerId": 2,
+    "FirstName": "Test2",
+    "LastName": "Test2",
+    "Email": "Test2@example.com",
+    "Password": "Test2",
     "PhoneNumber": 0
   }
 ]

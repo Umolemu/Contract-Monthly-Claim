@@ -1,6 +1,5 @@
 ﻿using Contract_Monthly_Claim.Data;
 using Contract_Monthly_Claim.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contract_Monthly_Claim.Controllers

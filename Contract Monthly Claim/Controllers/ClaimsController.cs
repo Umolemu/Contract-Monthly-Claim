@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using Contract_Monthly_Claim.Models;
 

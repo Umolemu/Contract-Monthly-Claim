@@ -1,6 +1,54 @@
-﻿@{
-    ViewData["Title"] = "View Claim";
+﻿@using System.IO
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "User Claims";
     Layout = "~/Views/Shared/DashboardLayout.cshtml";
+
+    if (string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("UID")) 
+    || HttpContextAccessor.HttpContext.Session.GetString("isAdmin") == "false")
+    {
+        HttpContextAccessor.HttpContext.Response.Redirect("/");
+        return;
+    }
+
+    var jsonFilePath = "Data/claims.json";
+
+    List<Contract_Monthly_Claim.Models.ClaimModel> claims = new List<Contract_Monthly_Claim.Models.ClaimModel>();
+
+    if (System.IO.File.Exists(jsonFilePath))
+    {
+        var json = System.IO.File.ReadAllText(jsonFilePath);
+        claims = System.Text.Json.JsonSerializer.Deserialize<List<Contract_Monthly_Claim.Models.ClaimModel>>(json);
+    }
 }
 
-<h1 class="text-center">You have no active claims</h1>
+@if (claims == null || !claims.Any())
+{
+    <h1 class="text-center">There are no active claims</h1>
+}
+else
+{
+    <div class="claims-list">
+        @foreach (var claim in claims)
+        {
+            <div class="claim-item">
+                <h3>Claim #@claim.ClaimId</h3>
+                <p><strong>Lecturer ID:</strong> @claim.LecturerId</p>
+                <p><strong>Date Submitted:</strong> @claim.DateSubmitted.ToString("yyyy-MM-dd")</p>
+                <p><strong>Hours Worked:</strong> @claim.HoursWorked.TotalHours</p>
+                <p><strong>Total Amount:</strong> @claim.TotalAmount.ToString("C")</p>
+                <p><strong>Claim Status:</strong> @claim.ClaimStatus</p>
+                @if (claim.CoordinatorApprovalDate > DateTime.MinValue)
+                {
+                    <p><strong>Coordinator Approval Date:</strong> @claim.CoordinatorApprovalDate.ToString("yyyy-MM-dd")</p>
+                }
+                @if (claim.ManagerApprovalDate > 0)
+                {
+                    <p><strong>Manager Approval Date:</strong> @claim.ManagerApprovalDate</p>
+                }
+            </div>
+        }
+    </div>
+}
