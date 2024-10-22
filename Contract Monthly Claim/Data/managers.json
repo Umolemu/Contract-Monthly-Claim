@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "ManagerId": 1,
+    "FirstName": "Test1 ",
+    "LastName": "Test1 ",
+    "Email": "Test1@example.com",
+    "Password": "Test1 ",
+    "PhoneNumber": 0
+  }
+]

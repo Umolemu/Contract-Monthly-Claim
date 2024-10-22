@@ -7,6 +7,7 @@ namespace Contract_Monthly_Claim.Controllers
 {
     public class LecturerController : Controller
     {
+        //Working Code
         [HttpPost]
         public IActionResult Register(LecturerModel lecturer)
         {
@@ -19,17 +20,23 @@ namespace Contract_Monthly_Claim.Controllers
             return BadRequest("Lecturer already exists.");
         }        
 
+        //Working Code
         [HttpPost]
         public IActionResult Login(string email, string password)
         {            
-            LecturerModel lecturer = Database.GetLecturerByEmail(email);
-            HttpContext.Session.SetString("UID", lecturer.LecturerId.ToString());
-            HttpContext.Session.SetString("IsAuthorized", "true");
-            HttpContext.Session.SetString("IsAdmin", "false");
+            if(Database.ValidateLecturer(email, password))
+            {
+                LecturerModel lecturer = Database.GetLecturerByEmail(email);
+                HttpContext.Session.SetString("UID", lecturer.LecturerId.ToString());
+                HttpContext.Session.SetString("IsAuthorized", "true");
+                HttpContext.Session.SetString("IsAdmin", "false");
 
-            return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
+        //Working Code
         [HttpGet]
         public IActionResult GetLecturer(int lecturerId)
         {

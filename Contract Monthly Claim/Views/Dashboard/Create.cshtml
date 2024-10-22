@@ -1,13 +1,24 @@
-﻿@{
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{
     ViewData["Title"] = "Create Claim";
     Layout = "~/Views/Shared/DashboardLayout.cshtml";
 }
 
+@{
+    if (string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("UID")))
+    {
+        HttpContextAccessor.HttpContext.Response.Redirect("/");
+        return;
+    }
+
+    int lecturerID = Convert.ToInt32(HttpContextAccessor.HttpContext.Session.GetString("UID"));
+}
 <div class="claim-container">
     <form method="post" action="/Claims/Create" enctype="multipart/form-data">
         <div class="my-3">
             <label for="LecturerId">Lecturer ID</label>
-            <input type="number" id="LecturerId" name="LecturerId" class="form-control" required />
+            <input type="number" id="LecturerId" name="LecturerId" class="form-control" value=@lecturerID readonly />
         </div>
         <div class="my-3">
             <label for="ClaimStatus">Claim Status</label>
@@ -18,7 +29,7 @@
             <input type="number" id="HoursWorked" name="HoursWorked" class="form-control" placeholder="160" required />
         </div>
         <div class="my-3">
-            <label for="TotalAmount">Total Amount</label>
+            <label for="TotalAmount">Hourly Rate</label>
             <input type="number" step="0.01" id="TotalAmount" name="TotalAmount" class="form-control" required />
         </div>
         <div class="my-3">

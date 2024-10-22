@@ -12,56 +12,47 @@ namespace Contract_Monthly_Claim.Controllers
     {
         private readonly string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Managers.json");
 
+        // Working Code
         [HttpPost("Register")]
         public IActionResult Register(AcademicManagerModel manager)
         {
-            if (ModelState.IsValid)
+            if (Database.GetAcademicManagerByEmail(manager.Email) == null)
             {
-                var managers = LoadManagers();
+                Database.AddAcademicManager(manager);
 
-                manager.ManagerId = managers.Count > 0 ? managers[^1].ManagerId + 1 : 1;
-
-                managers.Add(manager);
-
-                SaveManagers(managers);
-
-                return RedirectToAction("Index", "Manager");
+                return RedirectToAction("Index", "Home");
             }
 
-            return View(manager);
+            return BadRequest("Manager already exists.");
         }
 
+        // Working Code
         [HttpPost("Login")]
         public IActionResult Login(string email, string password)
         {
-            HttpContext.Session.SetString("IsAuthorized", "true");
-            HttpContext.Session.SetString("IsAdmin", "true");
+            if(Database.ValidateAcademicManager(email, password))
+            {
+                AcademicManagerModel manager = Database.GetAcademicManagerByEmail(email);
+                HttpContext.Session.SetString("UID", manager.ManagerId.ToString());
+                HttpContext.Session.SetString("IsAuthorized", "true");
+                HttpContext.Session.SetString("IsAdmin", "true");
 
-            return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet("View")]
-        public IActionResult ViewManagers()
+        public IActionResult GetManager(int managerId)
         {
-            var managers = LoadManagers();
-            return View(managers); 
-        }
+            AcademicManagerModel manager = Database.GetAcademicManager(managerId);
 
-        private List<AcademicManagerModel> LoadManagers()
-        {
-            if (!System.IO.File.Exists(jsonFilePath))
+            if (manager != null)
             {
-                return new List<AcademicManagerModel>();
+                return Ok(manager);
             }
 
-            var json = System.IO.File.ReadAllText(jsonFilePath);
-            return JsonSerializer.Deserialize<List<AcademicManagerModel>>(json) ?? new List<AcademicManagerModel>();
-        }
-
-        private void SaveManagers(List<AcademicManagerModel> managers)
-        {
-            var json = JsonSerializer.Serialize(managers, new JsonSerializerOptions { WriteIndented = true });
-            System.IO.File.WriteAllText(jsonFilePath, json);
+            return NotFound("Manager not found.");
         }
     }
 }

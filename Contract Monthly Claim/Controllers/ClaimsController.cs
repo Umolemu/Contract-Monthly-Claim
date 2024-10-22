@@ -11,37 +11,34 @@ namespace Contract_Monthly_Claim.Controllers
     {
         private readonly string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "claims.json");
 
-        // Action to Create a new claim
+        // Create new claim
         [HttpPost("Create")]
         public IActionResult Create(ClaimModel claim)
         {
             if (ModelState.IsValid)
             {
-                // Load existing claims from the JSON file
                 var claims = LoadClaims();
 
-                // Assign a new ClaimId and add the new claim
                 claim.ClaimId = claims.Count > 0 ? claims[^1].ClaimId + 1 : 1;
                 claims.Add(claim);
 
-                // Save updated claims back to the JSON file
                 SaveClaims(claims);
 
-                return RedirectToAction("Dashboard", "Home"); // Redirect to the view page to see the claims
+                return RedirectToAction("Index", "Dashboard");
             }
 
-            return View(claim); // Return to the view with validation messages if the claim is invalid
+            return View(claim);
         }
 
-        // Action to View all claims
+        // View all claims
         [HttpGet("View")]
         public IActionResult ViewClaims()
         {
-            var claims = LoadClaims(); // Load claims from the JSON file
-            return View(claims); // Pass the claims to the view
+            var claims = LoadClaims();
+            return View(claims);
         }
 
-        // Helper method to load claims from the JSON file
+        // Load claims from the JSON file
         private List<ClaimModel> LoadClaims()
         {
             if (!System.IO.File.Exists(jsonFilePath))
@@ -53,7 +50,7 @@ namespace Contract_Monthly_Claim.Controllers
             return JsonSerializer.Deserialize<List<ClaimModel>>(json) ?? new List<ClaimModel>();
         }
 
-        // Helper method to save claims to the JSON file
+        // Save claims to the JSON file
         private void SaveClaims(List<ClaimModel> claims)
         {
             var json = JsonSerializer.Serialize(claims, new JsonSerializerOptions { WriteIndented = true });

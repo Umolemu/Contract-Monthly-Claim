@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "ClaimId": 1,
+    "LecturerId": 0,
+    "DateSubmitted": "2024-10-22T18:52:00.1970432+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 70,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  },
+  {
+    "ClaimId": 2,
+    "LecturerId": 0,
+    "DateSubmitted": "2024-10-22T18:53:53.6875257+02:00",
+    "HoursWorked": "160.00:00:00",
+    "TotalAmount": 70,
+    "ClaimStatus": "Pending",
+    "CoordinatorApprovalDate": "0001-01-01T00:00:00",
+    "ManagerApprovalDate": 0
+  }
+]

@@ -5,6 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security.Claims;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace Contract_Monthly_Claim.Data
 {
@@ -13,6 +14,7 @@ namespace Contract_Monthly_Claim.Data
         private static readonly string lectures = Path.Combine(Directory.GetCurrentDirectory(), "Data", "lecturers.json"); 
         private static readonly string managersJson = Path.Combine(Directory.GetCurrentDirectory(), "Data", "managers.json"); 
         
+        //Load all lecturers from the JSON file
         private static List<LecturerModel> LoadLecturers()
         {
             if (File.Exists(lectures))
@@ -23,13 +25,14 @@ namespace Contract_Monthly_Claim.Data
             return new List<LecturerModel>();
         }
 
-        // Method to write lecturers to the JSON file
+        //Write lecturer to the JSON file
         public static void SaveLecturers(List<LecturerModel> lecturers)
         {
             var jsonData = JsonConvert.SerializeObject(lecturers, Formatting.Indented);
             File.WriteAllText(lectures, jsonData);
         }
 
+        //Get all lecturers and save them
         public static void AddLecturer(LecturerModel lecturer)
         {
             var lecturers = LoadLecturers();
@@ -38,45 +41,42 @@ namespace Contract_Monthly_Claim.Data
             SaveLecturers(lecturers);
         }
 
-        // Get all lecturers from the JSON file
-        public static List<LecturerModel> GetAllLecturers()
-        {
-            return LoadLecturers();
-        }
-
         // Get a lecturer by their ID
         public static LecturerModel GetLecturer(int lecturerId)
         {
-            return LoadLecturers().FirstOrDefault(l => l.LecturerId == lecturerId);
+            // Load all lecturers from the JSON file
+            var lecturers = LoadLecturers();
+
+            // Find the lecturer with the matching ID
+            var foundLecturer = lecturers.FirstOrDefault(l => l.LecturerId == lecturerId);
+
+            return foundLecturer;
         }
 
-        // Get a lecturer by email
+        // Get a lecturer by email 
         public static LecturerModel GetLecturerByEmail(string email)
-        {
-            email = "Test1@example.com";
-            Console.WriteLine($"Lecturer file path: {lectures}");
-
-            // Read the JSON data from the file
+        {       
             var json = File.ReadAllText(lectures);
 
-            // Deserialize the JSON into a list of LecturerModel
             var lecturers = JsonConvert.DeserializeObject<List<LecturerModel>>(json);
-                        
-            var foundLecturer = lecturers.FirstOrDefault(l => l.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
+            var foundLecturer = lecturers.FirstOrDefault(lecturer => lecturer.Email.Equals(email, StringComparison.OrdinalIgnoreCase)) ;
+            
             return foundLecturer;
         }
 
         // Validate lecturer credentials by email and password
         public static bool ValidateLecturer(string email, string password)
         {
+
             var lecturer = GetLecturerByEmail(email);
             
-            Console.WriteLine(lecturer);
+            Console.WriteLine($"Lecturer: {lecturer.FirstName}, Email: {lecturer.Email}");
 
             return lecturer != null && lecturer.Password == password;
         }
 
+        // Load all managers from the JSON file
         private static List<AcademicManagerModel> LoadManagers()
         {
             if (File.Exists(managersJson))
@@ -87,12 +87,14 @@ namespace Contract_Monthly_Claim.Data
             return new List<AcademicManagerModel>();
         }
 
+        // Save manager to the JSON file
         public static void SaveManagers(List<AcademicManagerModel> managers)
         {
             var jsonData = JsonConvert.SerializeObject(managers, Formatting.Indented);
             File.WriteAllText(managersJson, jsonData);
         }
 
+        // Add a manager to the JSON file
         public static void AddAcademicManager(AcademicManagerModel manager)
         {
             var managers = LoadManagers();
@@ -101,41 +103,35 @@ namespace Contract_Monthly_Claim.Data
             SaveManagers(managers);
         }
 
+        // Get all managers
         public static List<AcademicManagerModel> GetAllManagers()
         {
             return LoadManagers(); 
         }
 
+        // Get a manager by ID
         public static AcademicManagerModel GetAcademicManager(int managerId)
         {
-            return LoadManagers().FirstOrDefault(m => m.ManagerId == managerId);
+            var managers = LoadManagers();
+
+            var foundManager = managers.FirstOrDefault(manager => manager.ManagerId == managerId);
+
+            return foundManager;
         }
 
         // Get a manager by email
         public static AcademicManagerModel GetAcademicManagerByEmail(string email)
         {
-            Console.WriteLine($"Managers file path: {managersJson}");
+            var json = File.ReadAllText(lectures);
 
-            var json = System.IO.File.ReadAllText(managersJson);
+            var managers = JsonConvert.DeserializeObject<List<AcademicManagerModel>>(json);
 
-            var managers = JsonConvert.DeserializeObject<List<Contract_Monthly_Claim.Models.AcademicManagerModel>>(json);
-
-            // Find and return the manager with the matching email (case insensitive)
-            var foundManager = managers.FirstOrDefault(m => m.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
-
-            // Print the return value (found manager)
-            if (foundManager != null)
-            {
-                Console.WriteLine($"Found Manager: {foundManager.FirstName}, Email: {foundManager.Email}");
-            }
-            else
-            {
-                Console.WriteLine("Manager not found.");
-            }
+             var foundManager = managers.FirstOrDefault(manager => manager.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
             return foundManager;
         }
 
+        // Validate manager credentials by email and password
         public static bool ValidateAcademicManager(string email, string password)
         {
             var manager = GetAcademicManagerByEmail(email);
