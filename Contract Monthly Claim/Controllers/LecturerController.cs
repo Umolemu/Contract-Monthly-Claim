@@ -28,7 +28,8 @@ namespace Contract_Monthly_Claim.Controllers
                 LecturerModel lecturer = Database.GetLecturerByEmail(email);
                 HttpContext.Session.SetString("UID", lecturer.LecturerId.ToString());
                 HttpContext.Session.SetString("IsAuthorized", "true");
-                HttpContext.Session.SetString("IsAdmin", "false");
+                
+                HttpContext.Session.SetString("admin", "false");
 
                 return RedirectToAction("Index", "Dashboard");
             }

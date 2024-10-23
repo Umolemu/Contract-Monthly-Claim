@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using Contract_Monthly_Claim.Models;
+using Contract_Monthly_Claim.Data;
 
 namespace Contract_Monthly_Claim.Controllers
 {
@@ -26,6 +27,43 @@ namespace Contract_Monthly_Claim.Controllers
             }
 
             return View(claim);
+        }
+
+        // Process a claim: approve or reject
+        [HttpPost("Process")]
+        public IActionResult ProcessClaim(int claimId, string action, string reason = "")
+        {
+            // Assume manager is logged in
+            var manager = new AcademicManagerModel();
+
+            // Check if the claim exists
+            var claims = LoadClaims();
+            var claim = claims.FirstOrDefault(claim => claim.ClaimId == claimId);
+
+            if (claim == null)
+            {
+                return NotFound("Claim not found.");
+            }
+
+            if (action == "approve")
+            {
+                // Approve the claim
+                claim.ManagerApprovalDate = DateTime.Now;
+                claim.ClaimStatus = "Approved";
+                manager.ApproveClaim(claimId);
+            }
+            else if (action == "reject")
+            {
+                // Reject the claim with reason
+                claim.RejectionReason = reason;
+                claim.ClaimStatus = "Rejected";
+                manager.RejectClaim(claimId, reason);
+            }
+
+            // Save the updated claims back to the JSON file
+            SaveClaims(claims);
+
+            return RedirectToAction("Index", "Dashboard");
         }
 
         // View all claims

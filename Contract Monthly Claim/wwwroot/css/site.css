@@ -66,7 +66,6 @@ input:focus {
     margin-top: auto;
 }
 
-
 .sidebar-links .sidebar-link a {
     background-color: #f1f5f9;
     text-decoration: none;
@@ -86,6 +85,11 @@ input:focus {
     border-radius: 6px;
     color: black;
     margin-bottom: 20px;
+}
+
+.sidebar-svg {
+    width: 30px;
+    height: 30px;
 }
 
 .claim-container textarea {

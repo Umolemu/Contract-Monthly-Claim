@@ -21,15 +21,18 @@
                     <div class="sidebar-link">
                         <a asp-controller="Dashboard" asp-action="" class="d-block py-3 px-3">Home</a>
                     </div>
-                    <div class="sidebar-link">
-                        <a asp-controller="Dashboard" asp-action="Create" class="d-block py-3 px-3">Create Claim</a>
-                    </div>
-                    @if (Context.Session.GetString("IsAdmin") == "true")
+                    @if (Context.Session.GetString("admin") == "false")
+                    {
+                        <div class="sidebar-link">
+                            <a asp-controller="Dashboard" asp-action="Create" class="d-block py-3 px-3">Create Claim</a>
+                        </div>                        
+                    }
+                    @if (Context.Session.GetString("admin") == "true")
                     {
                         <div class="sidebar-link">
                             <a asp-controller="Dashboard" asp-action="Claims" class="d-block py-3 px-3">User Claims</a>
                         </div>
-                    }
+                    }                    
                 </div>
             </div>
 

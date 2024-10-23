@@ -51,10 +51,11 @@ else
                 {
                     <p><strong>Coordinator Approval Date:</strong> @claim.CoordinatorApprovalDate.ToString("yyyy-MM-dd")</p>
                 }
-                @if (claim.ManagerApprovalDate > 0)
+                @if (claim.ManagerApprovalDate > DateTime.MinValue)
                 {
-                    <p><strong>Manager Approval Date:</strong> @claim.ManagerApprovalDate</p>
+                    <p><strong>Manager Approval Date:</strong> @claim.ManagerApprovalDate.ToString("yyyy-MM-dd")</p>
                 }
+                <p><strong>Description</strong> @claim.Description</p>
             </div>
         }
     </div>

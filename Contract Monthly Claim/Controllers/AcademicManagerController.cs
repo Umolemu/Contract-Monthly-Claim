@@ -35,7 +35,8 @@ namespace Contract_Monthly_Claim.Controllers
                 AcademicManagerModel manager = Database.GetAcademicManagerByEmail(email);
                 HttpContext.Session.SetString("UID", manager.ManagerId.ToString());
                 HttpContext.Session.SetString("IsAuthorized", "true");
-                HttpContext.Session.SetString("IsAdmin", "true");
+               
+                HttpContext.Session.SetString("admin", "true");
 
                 return RedirectToAction("Index", "Dashboard");
             }

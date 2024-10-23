@@ -1,0 +1,95 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Approve or Reject Claim";
+    Layout = "~/Views/Shared/DashboardLayout.cshtml";
+
+    // Check for user authentication and admin status
+    if (string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("UID"))
+    || HttpContextAccessor.HttpContext.Session.GetString("admin") == "false")
+    {
+        HttpContextAccessor.HttpContext.Response.Redirect("/");
+        return;
+    }
+
+    // Get the claim ID from the query string
+    var claimIdString = HttpContextAccessor.HttpContext.Request.Query["claimId"];
+
+    // Try to parse the claim ID to an integer
+    int claimId;
+    if (!int.TryParse(claimIdString, out claimId))
+    {
+        <div>
+            <h1 class="text-center">Invalid Claim ID</h1>
+        </div>
+        return; // Exit if the Claim ID is invalid
+    }
+
+    var jsonFilePath = "Data/claims.json";
+
+    // Initialize claims list
+    List<Contract_Monthly_Claim.Models.ClaimModel> claims = new List<Contract_Monthly_Claim.Models.ClaimModel>();
+
+    // Read the JSON file and deserialize
+    if (System.IO.File.Exists(jsonFilePath))
+    {
+        var json = System.IO.File.ReadAllText(jsonFilePath);
+        claims = System.Text.Json.JsonSerializer.Deserialize<List<Contract_Monthly_Claim.Models.ClaimModel>>(json);
+    }
+
+    // Find the claim with the given ID
+    var selectedClaim = claims.FirstOrDefault(claim => claim.ClaimId == claimId);
+
+    if (selectedClaim != null)
+    {
+        selectedClaim.ClaimStatus = "Viewed";
+        var updatedJson = System.Text.Json.JsonSerializer.Serialize(claims);
+        System.IO.File.WriteAllText(jsonFilePath, updatedJson);
+    }
+}
+
+@if (selectedClaim == null)
+{
+    <div>
+        <h1 class="text-center">Claim not found</h1>
+    </div>
+}
+else
+{
+    <div>
+        <h2>Claim Details</h2>
+        <p><strong>Claim ID:</strong> @selectedClaim.ClaimId</p>
+        <p><strong>Lecturer ID:</strong> @selectedClaim.LecturerId</p>
+        <p><strong>Date Submitted:</strong> @selectedClaim.DateSubmitted.ToString("yyyy-MM-dd")</p>
+        <p><strong>Hours Worked:</strong> @selectedClaim.HoursWorked.TotalHours</p>
+        <p><strong>Total Amount:</strong> @selectedClaim.TotalAmount.ToString("C")</p>
+        <p><strong>Claim Status:</strong> @selectedClaim.ClaimStatus</p>
+        <p><strong>Description:</strong> @selectedClaim.Description</p>
+
+        @if (selectedClaim.CoordinatorApprovalDate > DateTime.MinValue)
+        {
+            <p><strong>Coordinator Approval Date:</strong> @selectedClaim.CoordinatorApprovalDate.ToString("yyyy-MM-dd")</p>
+        }
+        @if (selectedClaim.ManagerApprovalDate > DateTime.MinValue)
+        {
+            <p><strong>Manager Approval Date:</strong> @selectedClaim.ManagerApprovalDate.ToString("yyyy-MM-dd")</p>
+        }
+
+        <div>
+            <h3>Actions</h3>
+            <form method="post" action="@Url.Action("ProcessClaim", "Claims")">
+                <input type="hidden" name="claimId" value="@selectedClaim.ClaimId" />
+
+                <button type="submit" name="action" value="approve" class="approve-claim">Approve</button>
+                <button type="button" name="action" value="reject" class="reject-claim" onclick="showRejectionInput()">Reject</button>
+
+                <!-- Rejection reason input field -->
+                <div id="rejectionReasonInput" style="display:none;">
+                    <label for="rejectionReason">Rejection Reason:</label>
+                    <input type="text" name="reason" id="rejectionReason" required />
+                    <button type="submit" id="submitRejection" name="action" value="reject">Submit Rejection</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}

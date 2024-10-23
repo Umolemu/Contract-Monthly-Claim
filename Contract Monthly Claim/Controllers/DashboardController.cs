@@ -18,5 +18,10 @@ namespace Contract_Monthly_Claim.Controllers
         {
             return View();
         }
+
+        public IActionResult ApproveOrReject()
+        {
+            return View();
+        }
     }
 }

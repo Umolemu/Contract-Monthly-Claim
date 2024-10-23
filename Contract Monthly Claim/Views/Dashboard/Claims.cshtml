@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/DashboardLayout.cshtml";
 
     if (string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("UID")) 
-    || HttpContextAccessor.HttpContext.Session.GetString("isAdmin") == "false")
+    || HttpContextAccessor.HttpContext.Session.GetString("admin") == "false")
     {
         HttpContextAccessor.HttpContext.Response.Redirect("/");
         return;
@@ -22,6 +22,8 @@
         var json = System.IO.File.ReadAllText(jsonFilePath);
         claims = System.Text.Json.JsonSerializer.Deserialize<List<Contract_Monthly_Claim.Models.ClaimModel>>(json);
     }
+
+    claims = claims.Where(claim => claim.ClaimStatus != "Approved").ToList();
 }
 
 @if (claims == null || !claims.Any())
@@ -44,10 +46,14 @@ else
                 {
                     <p><strong>Coordinator Approval Date:</strong> @claim.CoordinatorApprovalDate.ToString("yyyy-MM-dd")</p>
                 }
-                @if (claim.ManagerApprovalDate > 0)
+                @if (claim.ManagerApprovalDate > DateTime.MinValue)
                 {
                     <p><strong>Manager Approval Date:</strong> @claim.ManagerApprovalDate</p>
                 }
+
+                <p>
+                    <a href="@Url.Action("ApproveOrReject", "Dashboard", new { claimId = claim.ClaimId })">Approve/Reject Claim</a>
+                </p>
             </div>
         }
     </div>
