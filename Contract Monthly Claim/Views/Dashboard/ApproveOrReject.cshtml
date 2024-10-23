@@ -57,14 +57,19 @@
 else
 {
     <div>
-        <h2>Claim Details</h2>
-        <p><strong>Claim ID:</strong> @selectedClaim.ClaimId</p>
-        <p><strong>Lecturer ID:</strong> @selectedClaim.LecturerId</p>
+        <h2 class="text-center">Claim Details</h2>
+         <p><strong>Lecturer ID:</strong> @selectedClaim.LecturerId</p>
         <p><strong>Date Submitted:</strong> @selectedClaim.DateSubmitted.ToString("yyyy-MM-dd")</p>
         <p><strong>Hours Worked:</strong> @selectedClaim.HoursWorked.TotalHours</p>
         <p><strong>Total Amount:</strong> @selectedClaim.TotalAmount.ToString("C")</p>
-        <p><strong>Claim Status:</strong> @selectedClaim.ClaimStatus</p>
         <p><strong>Description:</strong> @selectedClaim.Description</p>
+
+        @if (!string.IsNullOrEmpty(selectedClaim.DocumentPath))
+        {
+            var fileName = selectedClaim.DocumentPath.Substring(selectedClaim.DocumentPath.LastIndexOf("/") + 1);
+            <p><strong>Document: </strong> <a href="@Url.Action("Download", "Claims", new { fileName })" target="_blank">Download Document</a></p>
+        }
+
 
         @if (selectedClaim.CoordinatorApprovalDate > DateTime.MinValue)
         {

@@ -14,6 +14,13 @@
             </p>
         </div>
 
+        @if(!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
         <!-- Login Form -->
         <form asp-controller="Lecturer" asp-action="Login" method="post" class="d-flex flex-column w-100 gap-4">
             <div>

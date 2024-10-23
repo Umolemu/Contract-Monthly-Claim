@@ -8,12 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Files\**" />
+    <Content Remove="Data\Files\**" />
+    <EmbeddedResource Remove="Data\Files\**" />
+    <None Remove="Data\Files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="MySql.Data" Version="9.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="xunit" Version="2.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
+    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
 </Project>

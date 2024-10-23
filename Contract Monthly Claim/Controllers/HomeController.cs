@@ -20,8 +20,10 @@ namespace Contract_Monthly_Claim.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.ErrorMessage = TempData["ErrorMessage"]?.ToString();
             return View();
         }
 
@@ -29,6 +31,8 @@ namespace Contract_Monthly_Claim.Controllers
         {
             return View();
         }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

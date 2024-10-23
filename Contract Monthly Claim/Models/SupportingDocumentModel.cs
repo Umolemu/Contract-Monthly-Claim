@@ -7,15 +7,6 @@
         public string FileName { get; set; }
         public string FilePath { get; set; }
         public DateTime UploadedDate { get; set; }
-
-        public void UploadDocument(string filePath)
-        {
-            // Logic to upload document
-        }
-
-        //public SupportingDocumentModel GetDocumentDetails(int documentId)
-        //{
-            // Logic to get document details
-        //}
+       
     }
 }

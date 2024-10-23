@@ -8,9 +8,12 @@
         public TimeSpan HoursWorked { get; set; }
         public double TotalAmount { get; set; }
         public string Description { get; set; }
+        public string? DocumentPath { get; set; }
         public string ClaimStatus { get; set; } = "Pending";
         public DateTime CoordinatorApprovalDate { get; set; } = DateTime.MinValue;
         public DateTime ManagerApprovalDate { get; set; } = DateTime.MinValue;
         public string? RejectionReason { get; set; }
+        public SupportingDocumentModel? SupportingDocument { get; set; }
+
     }
 }

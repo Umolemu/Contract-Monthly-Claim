@@ -14,20 +14,57 @@ namespace Contract_Monthly_Claim.Controllers
         [HttpPost("Create")]
         public IActionResult Create(ClaimModel claim)
         {
+            // Check if the model state is valid
             if (ModelState.IsValid)
             {
                 var claims = LoadClaims();
 
                 claim.ClaimId = claims.Count > 0 ? claims[^1].ClaimId + 1 : 1;
-                claims.Add(claim);
 
-                SaveClaims(claims);
+                // Handle file upload 
+                var file = Request.Form.Files["Document"];
 
-                return RedirectToAction("Index", "Dashboard");
+                if (file != null && file.Length > 0)
+                {
+                    var allowedExtensions = new[] { ".txt", ".pdf", ".docx", ".xlsx" };
+                    var fileExtension = Path.GetExtension(file.FileName).ToLower();
+                    if (!allowedExtensions.Contains(fileExtension))
+                    {
+                        ModelState.AddModelError("Document", "Invalid file type. Only .txt, .pdf, .docx, and .xlsx files are allowed.");
+                        return View(claim);
+                    }
+
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                    var fileName = Guid.NewGuid().ToString() + "" + fileExtension;
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    claim.DocumentPath = fileName;
+
+                    claims.Add(claim);
+
+                    SaveClaims(claims);
+
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                    ModelState.AddModelError("Document", "Please upload a document.");
+                }
             }
 
-            return View(claim);
+            return View("~/Views/Dashboard/Create.cshtml", claim);
         }
+
 
         // Process a claim: approve or reject
         [HttpPost("Process")]
@@ -84,6 +121,21 @@ namespace Contract_Monthly_Claim.Controllers
 
             var json = System.IO.File.ReadAllText(jsonFilePath);
             return JsonSerializer.Deserialize<List<ClaimModel>>(json) ?? new List<ClaimModel>();
+        }
+
+        [HttpGet("Download/{fileName}")]
+        public IActionResult Download(string fileName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("File not found.");
+            }
+
+            var contentType = "application/octet-stream";
+
+            return PhysicalFile(filePath, contentType, fileName);
         }
 
         // Save claims to the JSON file

@@ -33,6 +33,7 @@ namespace Contract_Monthly_Claim.Controllers
 
                 return RedirectToAction("Index", "Dashboard");
             }
+            TempData["ErrorMessage"] = "Invalid email or password.";
             return RedirectToAction("Index", "Home");
         }
 
