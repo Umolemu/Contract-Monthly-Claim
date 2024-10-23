@@ -16,6 +16,20 @@
             </p>
         </div>
         
+        @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
         <!-- Registration Form -->
         <form asp-action="Register" asp-controller="Lecturer" method="post" class="d-flex flex-column w-100 gap-4">
             <div>

@@ -1,6 +1,7 @@
 ﻿using Contract_Monthly_Claim.Data;
 using Contract_Monthly_Claim.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace Contract_Monthly_Claim.Controllers
 {
@@ -10,13 +11,36 @@ namespace Contract_Monthly_Claim.Controllers
         [HttpPost]
         public IActionResult Register(LecturerModel lecturer)
         {
+            if (lecturer.FirstName.Length < 4)
+            {
+                TempData["ErrorMessage"] = "Username must be at least 4 characters long.";
+                return RedirectToAction("Register", "Home");
+            }
+
+            if (!IsValidPassword(lecturer.Password))
+            {
+                TempData["ErrorMessage"] = "Password must contain at least one uppercase letter, one number, and be at least 4 characters long.";
+                return RedirectToAction("Register", "Home");
+            }
+
+            if (!IsValidEmail(lecturer.Email))
+            {
+                TempData["ErrorMessage"] = "Email format is not valid.";
+                return RedirectToAction("Register", "Home");
+            }
+
+
             if (Database.GetLecturerByEmail(lecturer.Email) == null)
             {
                 Database.AddLecturer(lecturer);
 
-                return RedirectToAction("Index", "Home");
+                TempData["SuccessMessage"] = "Account Created Successfully.";
+
+                return RedirectToAction("Register", "Home"); ;
             }
-            return BadRequest("Lecturer already exists.");
+            
+            TempData["ErrorMessage"] = "Lecturer already exists.";
+            return RedirectToAction("Index", "Home");
         }        
 
         //Working Code
@@ -49,7 +73,21 @@ namespace Contract_Monthly_Claim.Controllers
             }
 
             return NotFound("Lecturer not found.");
-        }        
+        }
+
+        // Password validation 
+        private bool IsValidPassword(string password)
+        {
+            return password.Length >= 4 &&
+                   Regex.IsMatch(password, @"[A-Z]") && 
+                   Regex.IsMatch(password, @"[0-9]");
+        }
+
+        // Email validation
+        private bool IsValidEmail(string email)
+        {
+            return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+        }
     }
 }
 

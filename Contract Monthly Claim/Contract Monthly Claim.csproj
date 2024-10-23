@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Data\Files\**" />
+    <Compile Remove="wwwroot\NewFolder\**" />
     <Content Remove="Data\Files\**" />
+    <Content Remove="wwwroot\NewFolder\**" />
     <EmbeddedResource Remove="Data\Files\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder\**" />
     <None Remove="Data\Files\**" />
+    <None Remove="wwwroot\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\" />
-    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
 </Project>

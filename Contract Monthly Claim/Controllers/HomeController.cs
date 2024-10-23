@@ -23,12 +23,22 @@ namespace Contract_Monthly_Claim.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.ErrorMessage = TempData["ErrorMessage"]?.ToString();
+            if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString()))
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"]?.ToString();
+            }
+
+            if (!string.IsNullOrEmpty(TempData["SuccessMessage"]?.ToString()))
+            {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"]?.ToString();
+            }
+
             return View();
         }
 
         public IActionResult Register()
         {
+            ViewBag.ErrorMessage = TempData["ErrorMessage"]?.ToString();
             return View();
         }
 
