@@ -60,7 +60,7 @@ else
         <h2 class="text-center">Claim Details</h2>
          <p><strong>Lecturer ID:</strong> @selectedClaim.LecturerId</p>
         <p><strong>Date Submitted:</strong> @selectedClaim.DateSubmitted.ToString("yyyy-MM-dd")</p>
-        <p><strong>Hours Worked:</strong> @selectedClaim.HoursWorked.TotalHours</p>
+        <p><strong>Time Worked:</strong> @selectedClaim.HoursWorked.TotalHours</p>
         <p><strong>Total Amount:</strong> @selectedClaim.TotalAmount.ToString("C")</p>
         <p><strong>Description:</strong> @selectedClaim.Description</p>
 
@@ -70,23 +70,14 @@ else
             <p><strong>Document: </strong> <a href="@Url.Action("Download", "Claims", new { fileName })" target="_blank">Download Document</a></p>
         }
 
-
-        @if (selectedClaim.CoordinatorApprovalDate > DateTime.MinValue)
-        {
-            <p><strong>Coordinator Approval Date:</strong> @selectedClaim.CoordinatorApprovalDate.ToString("yyyy-MM-dd")</p>
-        }
-        @if (selectedClaim.ManagerApprovalDate > DateTime.MinValue)
-        {
-            <p><strong>Manager Approval Date:</strong> @selectedClaim.ManagerApprovalDate.ToString("yyyy-MM-dd")</p>
-        }
-
         <div>
             <h3>Actions</h3>
             <form method="post" action="@Url.Action("ProcessClaim", "Claims")">
                 <input type="hidden" name="claimId" value="@selectedClaim.ClaimId" />
 
-                <button type="submit" name="action" value="approve" class="approve-claim">Approve</button>
-                <button type="button" name="action" value="reject" class="reject-claim" onclick="showRejectionInput()">Reject</button>
+                <button type="submit" name="action" value="approve" class="approve-claim" id="approve-claim">Approve</button>
+                <button type="button" name="action" value="reject" class="approve-claim" id="reject-claim" onclick="showRejectionInput()">Reject</button>
+
 
                 <!-- Rejection reason input field -->
                 <div id="rejectionReasonInput" style="display:none;">

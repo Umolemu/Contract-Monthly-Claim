@@ -34,7 +34,7 @@ namespace Contract_Monthly_Claim.Models
             if (selectedClaim != null)
             {
                 selectedClaim.ClaimStatus = "Approved";
-                selectedClaim.ManagerApprovalDate = DateTime.Now;
+                selectedClaim.ApprovalDate = DateTime.Now;
 
                 SaveClaimsToFile(claims);
             }

@@ -6,10 +6,12 @@ namespace Contract_Monthly_Claim.Data
     public class Database
     {
         private static readonly string lectures = Path.Combine(Directory.GetCurrentDirectory(), "Data", "lecturers.json"); 
-        private static readonly string managersJson = Path.Combine(Directory.GetCurrentDirectory(), "Data", "managers.json"); 
-        
+        private static readonly string managersJson = Path.Combine(Directory.GetCurrentDirectory(), "Data", "managers.json");
+        private static readonly string coordinatorsJson = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Coordinators.json");
+
+
         //Load all lecturers from the JSON file
-        private static List<LecturerModel> LoadLecturers()
+        public static List<LecturerModel> LoadLecturers()
         {
             if (File.Exists(lectures))
             {
@@ -69,7 +71,7 @@ namespace Contract_Monthly_Claim.Data
         }
 
         // Load all managers from the JSON file
-        private static List<AcademicManagerModel> LoadManagers()
+        public static List<AcademicManagerModel> LoadManagers()
         {
             if (File.Exists(managersJson))
             {
@@ -114,7 +116,7 @@ namespace Contract_Monthly_Claim.Data
         // Get a manager by email
         public static AcademicManagerModel GetAcademicManagerByEmail(string email)
         {
-            var json = File.ReadAllText(lectures);
+            var json = File.ReadAllText(managersJson);
 
             var managers = JsonConvert.DeserializeObject<List<AcademicManagerModel>>(json);
 
@@ -126,8 +128,65 @@ namespace Contract_Monthly_Claim.Data
         // Validate manager credentials by email and password
         public static bool ValidateAcademicManager(string email, string password)
         {   
+
             var manager = GetAcademicManagerByEmail(email);
+            
             return manager != null && manager.Password == password;
+        }
+
+        // Load all coordinators from the JSON file
+        public static List<ProgrammeCoordinatorModel> LoadCoordinators()
+        {
+            if (File.Exists(coordinatorsJson))
+            {
+                var jsonData = File.ReadAllText(coordinatorsJson);
+                return JsonConvert.DeserializeObject<List<ProgrammeCoordinatorModel>>(jsonData) ?? new List<ProgrammeCoordinatorModel>();
+            }
+            return new List<ProgrammeCoordinatorModel>();
+        }
+
+        // Save coordinators to the JSON file
+        public static void SaveCoordinators(List<ProgrammeCoordinatorModel> coordinators)
+        {
+            var jsonData = JsonConvert.SerializeObject(coordinators, Formatting.Indented);
+            File.WriteAllText(coordinatorsJson, jsonData);
+        }
+
+        // Add a coordinator to the JSON file
+        public static void AddProgrammeCoordinator(ProgrammeCoordinatorModel coordinator)
+        {
+            var coordinators = LoadCoordinators();
+            coordinator.CoordinatorId = coordinators.Count + 1;
+            coordinators.Add(coordinator);
+            SaveCoordinators(coordinators);
+        }
+
+        // Get all coordinators
+        public static List<ProgrammeCoordinatorModel> GetAllCoordinators()
+        {
+            return LoadCoordinators();
+        }
+
+        // Get a coordinator by ID
+        public static ProgrammeCoordinatorModel GetProgrammeCoordinator(int coordinatorId)
+        {
+            var coordinators = LoadCoordinators();
+            return coordinators.FirstOrDefault(coordinator => coordinator.CoordinatorId == coordinatorId);
+        }
+
+        // Get a coordinator by email
+        public static ProgrammeCoordinatorModel GetProgrammeCoordinatorByEmail(string email)
+        {
+            var json = File.ReadAllText(coordinatorsJson);
+            var coordinators = JsonConvert.DeserializeObject<List<ProgrammeCoordinatorModel>>(json);
+            return coordinators.FirstOrDefault(coordinator => coordinator.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Validate coordinator credentials by email and password
+        public static bool ValidateProgrammeCoordinator(string email, string password)
+        {
+            var coordinator = GetProgrammeCoordinatorByEmail(email);
+            return coordinator != null && coordinator.Password == password;
         }
     }
 }

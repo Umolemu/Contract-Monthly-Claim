@@ -10,37 +10,10 @@
   },
   {
     "LecturerId": 2,
-    "FirstName": "Test2",
+    "FirstName": "Test1",
     "LastName": null,
-    "Email": "Test2@example.com",
-    "Password": "Test2",
-    "PhoneNumber": 0,
-    "HourlyRate": 0.0
-  },
-  {
-    "LecturerId": 3,
-    "FirstName": "Test3",
-    "LastName": null,
-    "Email": "Test3@example.com",
-    "Password": "Test3",
-    "PhoneNumber": 0,
-    "HourlyRate": 0.0
-  },
-  {
-    "LecturerId": 4,
-    "FirstName": "Test4",
-    "LastName": null,
-    "Email": "Test4@example.com",
-    "Password": "Test4",
-    "PhoneNumber": 0,
-    "HourlyRate": 0.0
-  },
-  {
-    "LecturerId": 5,
-    "FirstName": "Test5",
-    "LastName": null,
-    "Email": "Test5@example.com",
-    "Password": "Test5",
+    "Email": "Test1@example.com",
+    "Password": "Test1",
     "PhoneNumber": 0,
     "HourlyRate": 0.0
   }

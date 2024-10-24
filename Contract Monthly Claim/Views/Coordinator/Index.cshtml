@@ -6,7 +6,7 @@
     <div class="d-flex flex-column gap-2">
         <div class="text-center mb-4">
             <div>
-                <h2>Welcome to Contract Monthly Claim Manager</h2>
+                <h2>Welcome to Contract Monthly Claim Coordinator</h2>
             </div>
             <p class="text-soft">
                 The Contract Monthly Claim System empowers academic staff to effortlessly submit, review, and
@@ -22,7 +22,7 @@
         }
 
         <!-- Login Form -->
-        <form asp-controller="AcademicManager" asp-action="Login" method="post" class="d-flex flex-column w-100 gap-4">
+        <form asp-controller="ProgramCoordinator" asp-action="Login" method="post" class="d-flex flex-column w-100 gap-4">
             <div>
                 <label for="email">Email</label>
                 <input type="email" name="email" class="form-control" required />
@@ -34,7 +34,7 @@
 
             <div class="d-flex align-items-center justify-content-between">
                 <div>
-                    <a asp-controller="Coordinator" asp-action="Index">Coordiantor</a>
+                    <a asp-controller="Manager" asp-action="Index">Manager</a>
                 </div>
                 <div>
                     <a href="#">Forgot Password</a>
@@ -45,10 +45,11 @@
                 <button type="submit" class="btn btn-primary w-100 mb-2">Log in</button>
                 <p>
                     Don’t have an account?
-                    <a class="text-primary" asp-controller="Manager" asp-action="Register">Sign up</a>
+                    <a class="text-primary" asp-controller="Coordinator" asp-action="Register">Sign up</a>
                 </p>
             </div>
         </form>
     </div>
 </div>
+
 

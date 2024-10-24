@@ -16,11 +16,11 @@
 }
 <div class="claim-container">
     <form method="post" action="/Claims/Create" enctype="multipart/form-data">
-        <div class="my-3">
+        <div class="my-3 d-none">
             <label for="LecturerId">Lecturer ID</label>
             <input type="number" id="LecturerId" name="LecturerId" class="form-control" value=@lecturerID readonly />
         </div>
-        <div class="my-3">
+        <div class="my-3 d-none">
             <label for="ClaimStatus">Claim Status</label>
             <input type="text" id="ClaimStatus" name="ClaimStatus" class="form-control" value="Pending" readonly />
         </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="my-3">
             <label for="document">Upload Document</label>
-            <input type="file" id="Document" name="Document" accept=".txt,.pdf,.docx,.xlsx" class="form-control-file" />
+            <input type="file" id="Document" name="Document" accept=".txt,.pdf,.docx,.xlsx" class="form-control" />
         </div>
         <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-submit">Submit</button>

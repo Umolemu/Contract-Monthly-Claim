@@ -52,12 +52,13 @@ namespace Contract_Monthly_Claim.Controllers
 
                     claims.Add(claim);
 
-                    SaveClaims(claims);
+                    SaveClaims(claims);              
 
                     return RedirectToAction("Index", "Dashboard");
                 }
                 else
-                {
+                {                 
+
                     ModelState.AddModelError("Document", "Please upload a document.");
                 }
             }
@@ -85,7 +86,7 @@ namespace Contract_Monthly_Claim.Controllers
             if (action == "approve")
             {
                 // Approve the claim
-                claim.ManagerApprovalDate = DateTime.Now;
+                claim.ApprovalDate = DateTime.Now;
                 claim.ClaimStatus = "Approved";
                 manager.ApproveClaim(claimId);
             }

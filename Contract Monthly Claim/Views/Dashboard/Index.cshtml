@@ -30,7 +30,13 @@
 
 @if (lecturerClaims == null || !lecturerClaims.Any())
 {
-    <h1 class="text-center">You have no active claims</h1>
+    @if (HttpContextAccessor.HttpContext.Session.GetString("admin") == "admin")
+    {
+        <h1 class="text-center">No claims to display</h1>
+    } else
+    {
+        <h1 class="text-center">You have no active claims</h1>
+    }
 }
 else
 {
@@ -40,16 +46,12 @@ else
             <div class="claim-item">
                 <h3>Claim #@claim.ClaimId</h3>
                 <p><strong>Date Submitted:</strong> @claim.DateSubmitted.ToString("yyyy-MM-dd")</p>
-                <p><strong>Hours Worked:</strong> @claim.HoursWorked.TotalHours</p>
+                <p><strong>Time Worked:</strong> @claim.HoursWorked.TotalHours</p>
                 <p><strong>Hourly Rate:</strong> @claim.TotalAmount.ToString("C")</p>
                 <p><strong>Claim Status:</strong> @claim.ClaimStatus</p>
-                @if (claim.CoordinatorApprovalDate > DateTime.MinValue)
+                @if (claim.ApprovalDate > DateTime.MinValue)
                 {
-                    <p><strong>Coordinator Approval Date:</strong> @claim.CoordinatorApprovalDate.ToString("yyyy-MM-dd")</p>
-                }
-                @if (claim.ManagerApprovalDate > DateTime.MinValue)
-                {
-                    <p><strong>Manager Approval Date:</strong> @claim.ManagerApprovalDate.ToString("yyyy-MM-dd")</p>
+                    <p><strong>Approval Date:</strong> @claim.ApprovalDate.ToString("yyyy-MM-dd")</p>
                 }
                 <p><strong>Description: </strong> @claim.Description</p>
 

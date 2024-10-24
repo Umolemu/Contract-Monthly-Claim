@@ -116,7 +116,12 @@ input:focus {
     border: 1px solid #cbd5e1;
     border-radius: 6px;
     padding: 12px 20px;
-    width: fit-content;    
+    width: fit-content;
+    height: fit-content;
+}
+
+.rejectionReasonInput {
+    margin-top: 12px;
 }
 
 @media (min-width: 768px) {
